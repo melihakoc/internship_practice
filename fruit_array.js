@@ -24,33 +24,34 @@ const fruitsArray = [
  * ]
  */
 
-function countItems(fruitsArray) {
-  const counts = {};
-  fruitsArray.forEach((item) => {
-    if (!counts[item]) {
-      counts[item] = 1;
-    } else {
-      counts[item]++;
-    }
-  });
+const fruitCounts = {};
 
-  // counts = { }
+//counting the fruits inside the array
 
-  const matchItemToCountArr = Object.entries(counts).map(([value, count]) => {
-    const fruitObject = {};
-    fruitObject[value] = { count: count };
-    return fruitObject;
-  });
+fruitsArray.forEach((fruit) => {
+  //if the fruit in inside the array we add 1 to the count
+  if (fruitCounts[fruit]) {
+    fruitCounts[fruit].count++;
+  } else {
+    //if the fruit is not inside the fruitcounts object at the moment, we create a new object
+    fruitCounts[fruit] = { count: 1 };
+  }
+});
 
-  return matchItemToCountArr;
-}
+//we change fruitCounts object into an array
+const outputArr = Object.entries(fruitCounts).map(([fruit, count]) => ({
+  [fruit]: count,
+}));
 
-const outputArr = countItems(fruitsArray);
 console.log(outputArr);
 
-// Sort the matchItemToCountArr based on the count in descending order
-const decreasingOrder = [...outputArr].sort((a, b) => b.count - a.count);
-console.log(decreasingOrder);
+const increasingOrderArr = outputArr.sort(
+  (a, b) => a[Object.keys(a)[0]].count - b[Object.keys(b)[0]].count
+);
+console.log(increasingOrderArr);
 
-const increasingOrder = [...outputArr].sort((a, b) => a.count - b.count);
-console.log(increasingOrder);
+const decreasingOrderArr = outputArr.sort(
+  (a, b) => b[Object.keys(b)[0]].count - a[Object.keys(a)[0]].count
+);
+console.log(decreasingOrderArr);
+
