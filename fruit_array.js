@@ -45,13 +45,21 @@ const outputArr = Object.entries(fruitCounts).map(([fruit, count]) => ({
 
 console.log(outputArr);
 
-const increasingOrderArr = outputArr.sort(
-  (a, b) => a[Object.keys(a)[0]].count - b[Object.keys(b)[0]].count
-);
-console.log(increasingOrderArr);
+const sortedArr = outputArr.sort((a, b) => {
+  const countA = a[Object.keys(a)[0]].count;
+  const countB = b[Object.keys(b)[0]].count;
 
-const decreasingOrderArr = outputArr.sort(
-  (a, b) => b[Object.keys(b)[0]].count - a[Object.keys(a)[0]].count
-);
-console.log(decreasingOrderArr);
+  if (sortIncreasing) {
+    return countA - countB;
+  } else {
+    return countB - countA;
+  }
+});
+
+if (sortIncreasing) {
+  console.log("Increasing order:", sortedArr);
+} else {
+  console.log("Decreasing order:", sortedArr);
+}
+
 
